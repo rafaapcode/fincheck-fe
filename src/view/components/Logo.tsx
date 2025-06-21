@@ -12,26 +12,26 @@ function Logo({className}: LogoProps) {
     >
       <path
         stroke="currentColor"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M18.4375 7.58594H9.38617C7.19711 7.58594 5.82422 9.13611 5.82422 11.3306V17.2513C5.82422 19.4458 7.18954 20.9959 9.38617 20.9959H18.4364C20.6341 20.9959 22.0005 19.4458 22.0005 17.2513V11.3306C22.0005 9.13611 20.6341 7.58594 18.4375 7.58594Z"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         stroke="currentColor"
         d="M9.37207 12.0488H18.4472"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         stroke="currentColor"
         d="M18.0854 7.58365L16.4996 4.94056C15.3634 3.06933 13.3981 2.43801 11.5118 3.57524L3.76308 8.23874C1.88427 9.36733 1.50592 11.4029 2.6345 13.2893L5.69593 18.3549C5.83863 18.6003 5.99646 18.8208 6.17699 19.0186V19.0262"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         fill="currentColor"
