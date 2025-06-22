@@ -7,7 +7,8 @@ function Register() {
   const {
     errors,
     handleSubmit,
-    register
+    register,
+    isLoading
   } = useRegisterController();
 
   return (
@@ -26,7 +27,7 @@ function Register() {
         <Input error={errors.name?.message} type="text" placeholder="Nome"  {...register('name')}/>
         <Input error={errors.email?.message} type="email" placeholder="Email" {...register('email')}/>
         <Input error={errors.password?.message} type="password" placeholder="Senha" {...register('password')}/>
-        <Button type="submit" className="mt-2">
+        <Button type="submit" className="mt-2" isLoading={isLoading}>
           Criar conta
         </Button>
       </form>
