@@ -9,7 +9,7 @@ function Button({ className, ...props }: ButtonProps) {
     <button
       {...props}
       className={cn(
-        "bg-teal-700 hover:bg-teal-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed px-6 h-12 font-medium text-white rounded-2xl transition-all active:bg-teal-800",
+        "cursor-pointer bg-teal-700 hover:bg-teal-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed px-6 h-12 font-medium text-white rounded-2xl transition-all active:bg-teal-800",
         className
       )}
     />
