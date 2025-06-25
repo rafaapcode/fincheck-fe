@@ -1,12 +1,13 @@
-import { type ComponentProps } from "react";
+import { type ComponentProps, type ReactNode } from "react";
 import { cn } from "../../app/utils/cn";
 import Spinner from "./Spinner";
 
 interface ButtonProps extends ComponentProps<"button"> {
   isLoading?: boolean;
+  children: ReactNode;
 }
 
-function Button({ className, isLoading, disabled, ...props }: ButtonProps) {
+function Button({ children, className, isLoading, disabled, ...props }: ButtonProps) {
   return (
     <button
       disabled={disabled || isLoading}
@@ -16,7 +17,7 @@ function Button({ className, isLoading, disabled, ...props }: ButtonProps) {
         className
       )}
     >
-      {isLoading && <Spinner className="w-6 h-6"/>}
+      {isLoading ? <Spinner className="w-6 h-6"/> : children}
     </button>
   );
 }

@@ -1,7 +1,8 @@
-import { createContext, type ReactNode } from "react";
+import { createContext, useCallback, useState, type ReactNode } from "react";
 
 interface AuthContextValue {
   signedIn: boolean;
+  signIn: (acess_token: string) => void;
 }
 
 interface AuthProviderProps {
@@ -11,7 +12,11 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextValue);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  return <AuthContext.Provider value={{signedIn: true}}>{children}</AuthContext.Provider>;
+  const [signedIn, setSignedIn] = useState(false);
+
+  const signIn = useCallback((acess_token: string) => setSignedIn(true), []);
+
+  return <AuthContext.Provider value={{signedIn, signIn}}>{children}</AuthContext.Provider>;
 }
 
 
