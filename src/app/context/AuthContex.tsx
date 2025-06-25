@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { createContext, useCallback, useState, type ReactNode } from "react";
 import { localStorageKeys } from "../config/localstorageKeys";
+import { getMe } from "../services/usersService/usersService";
 
 interface AuthContextValue {
   signedIn: boolean;
@@ -15,9 +17,18 @@ export const AuthContext = createContext({} as AuthContextValue);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [signedIn, setSignedIn] = useState<boolean>(() => {
-    const storedAccessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN)
+    const storedAccessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
+
     return !!storedAccessToken;
   });
+
+  useQuery({
+    queryKey: ['users', 'me'],
+    queryFn: async () => {
+      return await getMe();
+    }
+  })
+
 
   const signIn = useCallback((acess_token: string) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, acess_token)
