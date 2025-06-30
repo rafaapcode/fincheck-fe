@@ -2,13 +2,11 @@ import { iconsMap } from "./iconsMap";
 
 interface CategoryIconProps {
   type: 'income' | 'expense';
-  category?: string;
+  category?: keyof (typeof iconsMap.expense | typeof iconsMap.income);
 }
 
 export function CategoryIcon({ type, category }: CategoryIconProps) {
-  const Icon = iconsMap[type][
-    category as keyof (typeof iconsMap.expense | typeof iconsMap.income) ?? 'default'
-  ] ?? iconsMap[type].default;
+  const Icon = iconsMap[type][category ?? 'default'] ?? iconsMap[type].default;
 
   return <Icon />
 }
