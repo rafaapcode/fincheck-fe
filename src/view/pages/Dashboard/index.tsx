@@ -1,7 +1,7 @@
 import Logo from "../../components/Logo";
 import UserMenu from "../../components/UserMenu";
-import Accounts from "./components/Accounts";
-import Transactions from "./components/Transactions";
+import Accounts from "./components/accounts/Accounts";
+import Transactions from "./components/transactions/Transactions";
 
 function Dashboard() {
   return (
