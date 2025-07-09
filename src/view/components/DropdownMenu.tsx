@@ -45,7 +45,7 @@ function DropdownMenuItem({ children, className,  onSelect }: DropdownMenuItemPr
     <RDXDropdownMenu.Item
       onSelect={onSelect}
       className={cn(
-        "cursor-pointer outline-none min-h-12 flex items-center py-2 px-4 gap-2 justify-start  text-sm text-gray-800 data-[highlighted]:bg-gray-50 rounded-2xl transition-colors duration-150",
+        "cursor-pointer outline-none min-h-10 flex items-center py-2 px-4 gap-2 justify-start  text-sm text-gray-800 data-[highlighted]:bg-gray-50 rounded-2xl transition-colors duration-150",
         className
       )}
     >
