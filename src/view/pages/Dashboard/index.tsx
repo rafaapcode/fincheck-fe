@@ -25,7 +25,9 @@ function Dashboard() {
         </main>
 
         <Fab />
-        <Modal />
+        <Modal open title="Filtro">
+          <h1>teste</h1>
+        </Modal>
       </div>
     </DashboardProvider>
   );

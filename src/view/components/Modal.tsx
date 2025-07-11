@@ -1,13 +1,22 @@
 import { Transition } from "@headlessui/react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import type { ReactNode } from "react";
 
-function Modal() {
+interface ModalProps {
+  open: boolean;
+  children: ReactNode;
+  title: string;
+  rightAction?: ReactNode;
+}
+
+function Modal({ open, children, title, rightAction }: ModalProps) {
   return (
-    <Dialog.Root open>
+    <Dialog.Root open={open}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-20" />
         <Transition
-          show={true}
+          show={open}
           enter="transition-opacity duration-150"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -15,13 +24,23 @@ function Modal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Dialog.Content className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 p-6 space-y-10 bg-white rounded-2xl z-30">
-            <h1>Modal esta ativo</h1>
+          <Dialog.Content className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 p-6 space-y-10 bg-white rounded-2xl z-30 shadow-lg w-full max-w-[400px] outline-none">
+            <header className="h-12 flex items-center justify-between text-gray-800">
+              <button className="size-12 cursor-pointer">
+                <Cross2Icon className="size-6"/>
+              </button>
+              <span className="text-lg tracking-[-1px] font-bold">{title}</span>
+              <div className="size-12 flex items-center justify-center">{rightAction}</div>
+            </header>
+            <div>
+              {children}
+            </div>
           </Dialog.Content>
         </Transition>
       </Dialog.Portal>
     </Dialog.Root>
   );
 }
+
 
 export default Modal;
