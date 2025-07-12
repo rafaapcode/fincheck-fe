@@ -6,13 +6,14 @@ import emptyStateIllustration from "../../../../../assets/emptystate.svg";
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import Spinner from "../../../../components/Spinner";
+import FiltersModal from "./FiltersModal";
 import SliderNavigation from "./SliderNavigation";
 import SliderOption from "./SliderOption";
 import TransactionTypeDropdown from "./transactionTypeDropdown";
 import { useTransactionsController } from "./useTransactionsController";
 
 function Transactions() {
-  const { areValuesVisible, isLoading, isInitialLoading, transactions } =
+  const { areValuesVisible, isLoading, isInitialLoading, transactions, isFiltersModalOpen, toggleFiltersModal } =
     useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -29,10 +30,11 @@ function Transactions() {
       )}
       {!isInitialLoading && (
         <>
+          <FiltersModal open={isFiltersModalOpen} onClose={toggleFiltersModal}/>
           <header className="">
             <div className="flex items-center justify-between">
               <TransactionTypeDropdown />
-              <button>
+              <button onClick={toggleFiltersModal} className="cursor-pointer">
                 <FilterIcon />
               </button>
             </div>

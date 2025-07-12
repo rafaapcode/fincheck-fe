@@ -1,5 +1,4 @@
 import Logo from "../../components/Logo";
-import Modal from "../../components/Modal";
 import UserMenu from "../../components/UserMenu";
 import Accounts from "./components/accounts/Accounts";
 import DashboardProvider from "./components/DashboardContext";
@@ -25,9 +24,6 @@ function Dashboard() {
         </main>
 
         <Fab />
-        <Modal open title="Filtro">
-          <h1>teste</h1>
-        </Modal>
       </div>
     </DashboardProvider>
   );
