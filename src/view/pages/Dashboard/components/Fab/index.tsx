@@ -5,15 +5,15 @@ import { CategoryIcon } from "../../../../components/icons/categories/CategoryIc
 
 function Fab() {
   return (
-    <div className="fixed right-4 bottom-4 cursor-pointer">
+    <div className="fixed right-4 bottom-4">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <button className="bg-teal-800 text-white size-12 flex justify-center items-center rounded-full">
+          <button className="bg-teal-800 text-white size-12 flex justify-center items-center rounded-full cursor-pointer">
             <PlusIcon className="size-6" />
           </button>
         </DropdownMenu.Trigger>
 
-        <DropdownMenu.Content>
+        <DropdownMenu.Content className="mb-2 mr-2">
           <DropdownMenu.Item>
             <CategoryIcon type="expense"/>
             Nova Despesa
