@@ -19,8 +19,10 @@ function Accounts() {
     toggleValuesVisibility,
     isLoading,
     accounts,
+    isNewAccountModalOpen,
+    toggleAccountModal
   } = useAccountsController();
-
+  console.log(isNewAccountModalOpen);
   return (
     <div className="rounded-2xl bg-teal-800 w-full h-full px-4 py-8 md:p-10 flex flex-col">
       {isLoading && (
@@ -67,7 +69,7 @@ function Accounts() {
                   </strong>
                 </div>
 
-                <button className="flex flex-col justify-center items-center gap-4 mt-4 h-52 border-2 border-dashed border-teal-600 rounded-2xl text-white cursor-pointer hover:bg-teal-900 transition-colors duration-300">
+                <button onClick={toggleAccountModal} className="flex flex-col justify-center items-center gap-4 mt-4 h-52 border-2 border-dashed border-teal-600 rounded-2xl text-white cursor-pointer hover:bg-teal-900 transition-colors duration-300">
                   <div className="size-11 rounded-full border-2 border-dashed border-white flex justify-center items-center">
                     <PlusIcon className="size-6"/>
                   </div>

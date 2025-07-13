@@ -2,7 +2,7 @@ import { useState } from "react";
 import useDashboard from "../DashboardContext/useDashboard";
 
 export function useTransactionsController() {
-  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(true);
+  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(false);
   const {areValuesVisible} = useDashboard();
 
   const toggleFiltersModal = () => {
