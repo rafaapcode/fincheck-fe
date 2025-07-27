@@ -1,3 +1,4 @@
+import ColorsDropdownInput from "../../../../components/ColorsDropdownInput";
 import Input from "../../../../components/Input";
 import InputCurrency from "../../../../components/InputCurrency";
 import Modal from "../../../../components/Modal";
@@ -38,6 +39,8 @@ function NewAccountModal() {
               { label: "Dinheiro Fisico", value: "cash" },
             ]}
           />
+
+          <ColorsDropdownInput />
         </div>
       </form>
     </Modal>
