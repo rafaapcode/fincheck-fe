@@ -1,4 +1,6 @@
+import Button from "../../../../components/Button";
 import ColorsDropdownInput from "../../../../components/ColorsDropdownInput";
+import DaterPickerInput from "../../../../components/DaterPickerInput";
 import Input from "../../../../components/Input";
 import InputCurrency from "../../../../components/InputCurrency";
 import Modal from "../../../../components/Modal";
@@ -57,7 +59,11 @@ function NewTransactionModal() {
           />
 
           <ColorsDropdownInput />
+          <DaterPickerInput />
         </div>
+        <Button type="submit" className="w-full mt-6">
+          Criar
+        </Button>
       </form>
     </Modal>
   );
