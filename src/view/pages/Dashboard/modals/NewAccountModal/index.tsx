@@ -66,7 +66,7 @@ function NewAccountModal() {
                 placeholder="Tipo"
                 options={[
                   { label: "Conta Corrente", value: "CHECKING" },
-                  { label: "Investimentos", value: "INVESTMENT" },
+                  { label: "Investimentos", value: "INVESTMENTS" },
                   { label: "Dinheiro Fisico", value: "CASH" },
                 ]}
               />

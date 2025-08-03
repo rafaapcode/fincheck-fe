@@ -19,10 +19,8 @@ function Accounts() {
     toggleValuesVisibility,
     isLoading,
     accounts,
-    isNewAccountModalOpen,
-    toggleAccountModal
+    toggleAccountModal,
   } = useAccountsController();
-  console.log(isNewAccountModalOpen);
   return (
     <div className="rounded-2xl bg-teal-800 w-full h-full px-4 py-8 md:p-10 flex flex-col">
       {isLoading && (
@@ -69,11 +67,16 @@ function Accounts() {
                   </strong>
                 </div>
 
-                <button onClick={toggleAccountModal} className="flex flex-col justify-center items-center gap-4 mt-4 h-52 border-2 border-dashed border-teal-600 rounded-2xl text-white cursor-pointer hover:bg-teal-900 transition-colors duration-300">
+                <button
+                  onClick={toggleAccountModal}
+                  className="flex flex-col justify-center items-center gap-4 mt-4 h-52 border-2 border-dashed border-teal-600 rounded-2xl text-white cursor-pointer hover:bg-teal-900 transition-colors duration-300"
+                >
                   <div className="size-11 rounded-full border-2 border-dashed border-white flex justify-center items-center">
-                    <PlusIcon className="size-6"/>
+                    <PlusIcon className="size-6" />
                   </div>
-                  <span className="font-medium tracking-[-0.5px] block w-32 text-center">Cadastre uma nova conta</span>
+                  <span className="font-medium tracking-[-0.5px] block w-32 text-center">
+                    Cadastre uma nova conta
+                  </span>
                 </button>
               </>
             )}
@@ -103,30 +106,16 @@ function Accounts() {
                     />
                   </div>
 
-                  <SwiperSlide>
-                    <AccountCard
-                      balance={1223.312}
-                      color="#7950f2"
-                      name="Nubank"
-                      type="CASH"
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <AccountCard
-                      balance={1223.312}
-                      color="#22df6a"
-                      name="Nubank"
-                      type="INVESTMENT"
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <AccountCard
-                      balance={1223.312}
-                      color="#22df6a"
-                      name="BTG"
-                      type="CHECKING"
-                    />
-                  </SwiperSlide>
+                  {accounts.map((acc) => (
+                    <SwiperSlide key={acc.id}>
+                      <AccountCard
+                        balance={acc.currentBalance}
+                        color={acc.color}
+                        name={acc.name}
+                        type={acc.type}
+                      />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             )}

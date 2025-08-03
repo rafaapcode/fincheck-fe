@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -11,7 +11,7 @@ import useDashboard from "../../components/DashboardContext/useDashboard";
 const schema = z.object({
   initialBalance: z.string().nonempty("Saldo inicial é obrigatório"),
   name: z.string().nonempty("Nome da conta é obrigatória"),
-  type: z.enum(["CHECKING", "INVESTMENT", "CASH"]),
+  type: z.enum(["CHECKING", "INVESTMENTS", "CASH"]),
   color: z.string().nonempty("Cor é obrigatória"),
 });
 
@@ -33,6 +33,7 @@ function useAccountModalController() {
     }
   });
 
+  const queryClient = useQueryClient();
   const {mutateAsync, isPending} = useMutation({
     mutationFn: async (data: BankAccountParams) => {
       return bankAccountService.create(data);
@@ -46,6 +47,7 @@ function useAccountModalController() {
       initialBalance: currencyStringToNumber(data.initialBalance)
     });
 
+    queryClient.invalidateQueries({queryKey: ['bankAccounts']})
     toast.success('Conta foi cadastrada com sucesso !');
     toggleAccountModal();
     reset();
