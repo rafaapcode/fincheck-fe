@@ -20,6 +20,7 @@ function Accounts() {
     isLoading,
     accounts,
     toggleAccountModal,
+    currentBalance,
   } = useAccountsController();
   return (
     <div className="rounded-2xl bg-teal-800 w-full h-full px-4 py-8 md:p-10 flex flex-col">
@@ -44,7 +45,7 @@ function Accounts() {
                   !areValuesVisible && "blur-md"
                 )}
               >
-                {formatCurrency(1000)}
+                {formatCurrency(currentBalance)}
               </strong>
               <button
                 className="cursor-pointer size-8 flex items-center justify-center"
@@ -109,10 +110,7 @@ function Accounts() {
                   {accounts.map((acc) => (
                     <SwiperSlide key={acc.id}>
                       <AccountCard
-                        balance={acc.currentBalance}
-                        color={acc.color}
-                        name={acc.name}
-                        type={acc.type}
+                        data={acc}
                       />
                     </SwiperSlide>
                   ))}
