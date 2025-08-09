@@ -8,10 +8,17 @@ import Popover from "./Popover";
 interface DaterPickerInputProps {
   error?: string;
   className?: string;
+  value?: Date;
+  onChange?: (date: Date) => void;
 }
 
-function DaterPickerInput({ className, error }: DaterPickerInputProps) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+function DaterPickerInput({ className, value, onChange, error }: DaterPickerInputProps) {
+  const [selectedDate, setSelectedDate] = useState(value ?? new Date());
+
+  const handleChangeDate = (date: Date) => {
+    setSelectedDate(date);
+    onChange?.(date)
+  }
 
   return (
     <div>
@@ -32,7 +39,7 @@ function DaterPickerInput({ className, error }: DaterPickerInputProps) {
           </button>
         </Popover.Trigger>
         <Popover.Content className="z-50">
-          <DatePicker value={selectedDate} onChange={(date) => setSelectedDate(date)}/>
+          <DatePicker value={selectedDate} onChange={(date) => handleChangeDate(date)}/>
         </Popover.Content>
       </Popover.Root>
       {error && <FieldError error={error} />}

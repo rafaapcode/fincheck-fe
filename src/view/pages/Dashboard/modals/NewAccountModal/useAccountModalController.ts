@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { bankAccountService } from "../../../../../app/services/bankAccountService";
-import type { BankAccountParams } from "../../../../../app/services/bankAccountService/create";
+import type { CreateBankAccountParams } from "../../../../../app/services/bankAccountService/create";
 import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
 import useDashboard from "../../components/DashboardContext/useDashboard";
 
@@ -35,7 +35,7 @@ function useAccountModalController() {
 
   const queryClient = useQueryClient();
   const {mutateAsync, isPending} = useMutation({
-    mutationFn: async (data: BankAccountParams) => {
+    mutationFn: async (data: CreateBankAccountParams) => {
       return bankAccountService.create(data);
     }
   })
