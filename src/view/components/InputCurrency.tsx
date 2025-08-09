@@ -5,7 +5,7 @@ import FieldError from "./FieldError";
 interface InputCurrencyProps {
   error?: string;
   onChange?: (value: string) => void;
-  value?: string;
+  value?: string | number;
 }
 
 function InputCurrency({ error, onChange, value}: InputCurrencyProps) {
