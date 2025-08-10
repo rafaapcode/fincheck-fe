@@ -13,8 +13,14 @@ import TransactionTypeDropdown from "./transactionTypeDropdown";
 import { useTransactionsController } from "./useTransactionsController";
 
 function Transactions() {
-  const { areValuesVisible, isLoading, isInitialLoading, transactions, isFiltersModalOpen, toggleFiltersModal } =
-    useTransactionsController();
+  const {
+    areValuesVisible,
+    isLoading,
+    isInitialLoading,
+    transactions,
+    isFiltersModalOpen,
+    toggleFiltersModal,
+  } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
 
@@ -30,7 +36,10 @@ function Transactions() {
       )}
       {!isInitialLoading && (
         <>
-          <FiltersModal open={isFiltersModalOpen} onClose={toggleFiltersModal}/>
+          <FiltersModal
+            open={isFiltersModalOpen}
+            onClose={toggleFiltersModal}
+          />
           <header className="">
             <div className="flex items-center justify-between">
               <TransactionTypeDropdown />
@@ -64,7 +73,7 @@ function Transactions() {
               </div>
             )}
 
-            {(!hasTransactions && !isLoading) && (
+            {!hasTransactions && !isLoading && (
               <div className="flex flex-col justify-center items-center h-full">
                 <img
                   src={emptyStateIllustration}
@@ -76,51 +85,44 @@ function Transactions() {
               </div>
             )}
 
-            {hasTransactions && !isLoading && (
-              <>
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
+            {hasTransactions &&
+              !isLoading &&
+              transactions.map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
+                >
                   <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="expense" />
+                    <CategoryIcon
+                      type={
+                        transaction.type === "EXPENSE" ? "expense" : "income"
+                      }
+                      category={transaction.category?.icon}
+                    />
 
                     <div>
                       <strong className="tracking-[-0.5px] block">
-                        Almoço
+                        {transaction.name}
                       </strong>
-                      <span className="text-sm text-gray-600">04/02/2020</span>
+                      <span className="text-sm text-gray-600">
+                        {transaction.date}
+                      </span>
                     </div>
                   </div>
                   <span
                     className={cn(
-                      "text-red-800 tracking-[-0.5px] font-medium",
+                      "tracking-[-0.5px] font-medium",
+                      transaction.type === "EXPENSE"
+                        ? "text-red-800"
+                        : "text-green-800",
                       !areValuesVisible && "blur-sm"
                     )}
                   >
-                    -{formatCurrency(123)}
+                    {transaction.type === "EXPENSE" ? "-" : "+"}
+                    {formatCurrency(transaction.value)}
                   </span>
                 </div>
-
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-                  <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="income" />
-
-                    <div>
-                      <strong className="tracking-[-0.5px] block">
-                        Almoço
-                      </strong>
-                      <span className="text-sm text-gray-600">04/02/2020</span>
-                    </div>
-                  </div>
-                  <span
-                    className={cn(
-                      "text-green-800 tracking-[-0.5px] font-medium",
-                      !areValuesVisible && "blur-sm"
-                    )}
-                  >
-                    {formatCurrency(123)}
-                  </span>
-                </div>
-              </>
-            )}
+              ))}
           </div>
         </>
       )}
