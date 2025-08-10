@@ -52,7 +52,7 @@ function useAccountModalController() {
     toggleAccountModal();
     reset();
    } catch {
-       toast.error('Erro ao cadastrar a conta.')
+      toast.error('Erro ao cadastrar a conta.')
    }
   });
 
