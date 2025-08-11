@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { MONTHS } from "../../../../../app/config/constants";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
+import { formatDate } from "../../../../../app/utils/formatDate";
 import emptyStateIllustration from "../../../../../assets/emptystate.svg";
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
@@ -20,6 +21,8 @@ function Transactions() {
     transactions,
     isFiltersModalOpen,
     toggleFiltersModal,
+    handleChangeFilters,
+    filters
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -42,14 +45,20 @@ function Transactions() {
           />
           <header className="">
             <div className="flex items-center justify-between">
-              <TransactionTypeDropdown />
+              <TransactionTypeDropdown 
+                onSelect={handleChangeFilters('type')}
+                selectedType={filters.type}
+              />
               <button onClick={toggleFiltersModal} className="cursor-pointer">
                 <FilterIcon />
               </button>
             </div>
 
             <div className="mt-6 relative">
-              <Swiper slidesPerView={3} spaceBetween={16} centeredSlides>
+              <Swiper slidesPerView={3} spaceBetween={16} initialSlide={filters.month} centeredSlides onSlideChange={(swiper) => {
+                if(swiper.realIndex === filters.month) return;
+                handleChangeFilters('month')(swiper.realIndex);
+              }}>
                 <SliderNavigation />
                 {MONTHS.map((month, idx) => (
                   <SwiperSlide key={month}>
@@ -105,7 +114,7 @@ function Transactions() {
                         {transaction.name}
                       </strong>
                       <span className="text-sm text-gray-600">
-                        {transaction.date}
+                        {formatDate(new Date(transaction.date))}
                       </span>
                     </div>
                   </div>
