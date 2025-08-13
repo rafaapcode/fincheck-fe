@@ -28,9 +28,14 @@ export function useTransactionsController() {
     }
   };
 
-
   const toggleFiltersModal = () => {
     setIsFiltersModalOpen((prev) => !prev);
+  };
+
+  const handleApplyFilters = ({bankAccId, year}: {bankAccId: string | undefined; year: number}) => {
+    handleChangeFilters('bankAccountId')(bankAccId);
+    handleChangeFilters('year')(year);
+    toggleFiltersModal();
   };
 
   return {
@@ -42,5 +47,6 @@ export function useTransactionsController() {
     isFiltersModalOpen,
     handleChangeFilters,
     filters,
+    handleApplyFilters
   };
 }
