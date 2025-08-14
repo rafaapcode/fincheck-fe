@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import type { Transaction } from "../../../../../app/entities/Transaction";
 import { useTransactions } from "../../../../../app/hooks/useTransactions";
 import type { TransactionsFilters } from "../../../../../app/services/transactionService/getAll";
 import useDashboard from "../DashboardContext/useDashboard";
 
 export function useTransactionsController() {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<TransactionsFilters>({
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
   });
+   const [transactionIsBeingEdited, setTransactionIsBeingEdited] = useState<null | Transaction>(null);
   const { areValuesVisible } = useDashboard();
 
   const { transactions, isFetching, isLoading, refetch } =
@@ -32,6 +35,11 @@ export function useTransactionsController() {
     setIsFiltersModalOpen((prev) => !prev);
   };
 
+  const toggleEditModal = (transaction: Transaction | null) => {
+    setIsEditModalOpen((prev) => !prev);
+    setTransactionIsBeingEdited(transaction);
+  };
+
   const handleApplyFilters = ({bankAccId, year}: {bankAccId: string | undefined; year: number}) => {
     handleChangeFilters('bankAccountId')(bankAccId);
     handleChangeFilters('year')(year);
@@ -47,6 +55,9 @@ export function useTransactionsController() {
     isFiltersModalOpen,
     handleChangeFilters,
     filters,
-    handleApplyFilters
+    handleApplyFilters,
+    toggleEditModal,
+    isEditModalOpen,
+    transactionIsBeingEdited
   };
 }
