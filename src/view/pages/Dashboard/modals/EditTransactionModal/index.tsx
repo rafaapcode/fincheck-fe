@@ -1,6 +1,8 @@
+import { TrashIcon } from "@radix-ui/react-icons";
 import { Controller } from "react-hook-form";
 import type { Transaction } from "../../../../../app/entities/Transaction";
 import Button from "../../../../components/Button";
+import ConfirmDeleteModal from "../../../../components/ConfirmDeleteModal";
 import DaterPickerInput from "../../../../components/DaterPickerInput";
 import Input from "../../../../components/Input";
 import InputCurrency from "../../../../components/InputCurrency";
@@ -14,7 +16,11 @@ interface EditTransactionModalProps {
   transaction: Transaction | null;
 }
 
-function EditTransactionModal({ transaction, onClose, open }: EditTransactionModalProps) {
+function EditTransactionModal({
+  transaction,
+  onClose,
+  open,
+}: EditTransactionModalProps) {
   const {
     control,
     errors,
@@ -22,16 +28,36 @@ function EditTransactionModal({ transaction, onClose, open }: EditTransactionMod
     register,
     accounts,
     categories,
-    isPending
-  } = useEditTransactionModalController(transaction);
+    isPending,
+    isDeleteModalOpen,
+    isLoadingDelete,
+    toggleDeleteModal,
+    handleDeleteTransaction,
+  } = useEditTransactionModalController(transaction, onClose);
 
   const isExpense = transaction?.type === "EXPENSE";
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        isLoading={isLoadingDelete}
+        onConfirm={handleDeleteTransaction}
+        title={`Tem certeza que deseja excluir essa ${isExpense ? "Despesa" : 'Receita'} ?`}
+        onClose={toggleDeleteModal}
+      />
+    );
+  }
 
   return (
     <Modal
       title={isExpense ? "Editar Despesa" : "Editar Receita"}
       open={open}
       onClose={onClose}
+      rightAction={
+        <button onClick={toggleDeleteModal} className="cursor-pointer">
+          <TrashIcon className="size-6 text-red-800 hover:text-red-600 transition-colors duration-150" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -69,9 +95,9 @@ function EditTransactionModal({ transaction, onClose, open }: EditTransactionMod
               <Select
                 value={value}
                 placeholder="Categoria"
-                options={categories.map(cat => ({
+                options={categories.map((cat) => ({
                   value: cat.id,
-                  label: cat.name
+                  label: cat.name,
                 }))}
                 error={errors.categoryId?.message}
                 onChange={onChange}
@@ -88,10 +114,10 @@ function EditTransactionModal({ transaction, onClose, open }: EditTransactionMod
                 value={value}
                 onChange={onChange}
                 placeholder={isExpense ? "Pagar com" : "Receber na conta"}
-                options={accounts.map(acc => ({ 
+                options={accounts.map((acc) => ({
                   value: acc.id,
-                  label: acc.name
-                 }))}
+                  label: acc.name,
+                }))}
               />
             )}
           />
@@ -100,7 +126,13 @@ function EditTransactionModal({ transaction, onClose, open }: EditTransactionMod
             control={control}
             name="date"
             defaultValue={new Date()}
-            render={({field: { value, onChange }}) => <DaterPickerInput error={errors.date?.message} value={value} onChange={onChange}/>}
+            render={({ field: { value, onChange } }) => (
+              <DaterPickerInput
+                error={errors.date?.message}
+                value={value}
+                onChange={onChange}
+              />
+            )}
           />
         </div>
         <Button type="submit" className="w-full mt-6" isLoading={isPending}>
