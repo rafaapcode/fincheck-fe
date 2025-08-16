@@ -83,6 +83,7 @@ function useEditTransactionModalController(transaction: Transaction | null, onCl
       });
 
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
       toast.success(transaction!.type === "EXPENSE" ? "Despesa cadastrada com sucesso !" : "Receita cadastrada com sucesso !");
       onClose();
     } catch {
@@ -95,6 +96,7 @@ function useEditTransactionModalController(transaction: Transaction | null, onCl
       if (!transaction) return;
       await removeTransaction(transaction.id);
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
       toast.success(transaction!.type === "EXPENSE" ? "Despesa deletada com sucesso !" : "Receita deletada com sucesso !");
       toggleDeleteModal();
       onClose();
