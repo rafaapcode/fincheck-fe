@@ -3,7 +3,8 @@ import { createContext, useCallback, useEffect, useState, type ReactNode } from 
 import toast from "react-hot-toast";
 import LaunchScreen from "../../view/components/LaunchScreen";
 import { localStorageKeys } from "../config/localstorageKeys";
-import type { User } from "../entities/USer";
+import type { User } from "../entities/User";
+import { healthCheck } from "../services/health_check";
 import { usersService } from "../services/usersService";
 
 interface AuthContextValue {
@@ -30,7 +31,10 @@ function AuthProvider({ children }: AuthProviderProps) {
   const {isError, isFetching, isSuccess, data } = useQuery({
     enabled: signedIn,
     queryKey: ['users', 'me'],
-    queryFn: () => usersService.getMe(),
+    queryFn: async () => {
+      await healthCheck.status();
+      return await usersService.getMe();
+    },
     staleTime: Infinity,
   })
 
