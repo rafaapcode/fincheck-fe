@@ -1,4 +1,4 @@
-import type { User } from "../../entities/USer";
+import type { User } from "../../entities/User";
 import { httpClient } from "../httpClient";
 
 type MeResponse = User;
